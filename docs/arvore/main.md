@@ -1,6 +1,7 @@
 ## Objetivo
 
 Aqui vai o objetivo macro do roteiro. Por que estamos fazendo o que estamos fazendo?
+O objetivo geral deste roteiro é utilizar a biblioteca Pandas para.....
 
 ## Montagem do Roteiro
 
