@@ -1,60 +1,99 @@
 ## Objetivo
-
-Aqui vai o objetivo macro do roteiro. Por que estamos fazendo o que estamos fazendo?
-O objetivo geral deste roteiro é utilizar a biblioteca Pandas para.....
-
-## Montagem do Roteiro
-
-Os pontos "tarefas" são os passos que devem ser seguidos para a realização do roteiro. Eles devem ser claros e objetivos. Com evidências claras de que foram realizados.
-
-### Tarefa 1
-
-Instalando o MAAS:
-
-<!-- termynal -->
-
-``` bash
-sudo snap install maas --channel=3.5/Stable
-```
-
-![Tela do Dashboard do MAAS](./maas.png)
-/// caption
-Dashboard do MAAS
-///
-
-Conforme ilustrado acima, a tela inicial do MAAS apresenta um dashboard com informações sobre o estado atual dos servidores gerenciados. O dashboard é composto por diversos painéis, cada um exibindo informações sobre um aspecto específico do ambiente gerenciado. Os painéis podem ser configurados e personalizados de acordo com as necessidades do usuário.
-
-### Tarefa 2
-
-## App
+O objetivo geral deste roteiro é utilizar as bibliotecas `pandas`, `numpy`, `matplotlib` e `scikit-learn`, além de uma base escolhida no [Kagle](https://www.kaggle.com/), para treinar e avaliar um algoritmo de árvore de decisão.
 
 
+## Base de Dados
 
-### Tarefa 1
+A base de dados escolhida para a realização deste roteiro foi a [MBA Admission Dataset](https://www.kaggle.com/datasets/taweilo/mba-admission-dataset). Esta base possui 6194 linhas e 10 colunas, incluido uma coluna de ID da aplicação e uma coluna de status da admissão, esta é a váriavel dependente que será objeto da classificação.
 
-### Tarefa 2
+### Análise da Base
 
-Exemplo de diagrama
+A seguir foi feita uma análise do significado e composição de cada coluna presente na base com a finalidade de indetificar possíveis problemas á serem tradados posteriormente. 
 
-```mermaid
-architecture-beta
-    group api(cloud)[API]
+=== "application_id"
 
-    service db(database)[Database] in api
-    service disk1(disk)[Storage] in api
-    service disk2(disk)[Storage] in api
-    service server(server)[Server] in api
+    Esta coluna é composta pelos ID's das aplicações realizadas, ou seja trata-se de um valor numérico lógico, único a cada aplicação, desta forma pode-se afirmar que esta coluna não terá relevância para o algoritmo e deverá ser retirada da base para treinamento.
 
-    db:L -- R:server
-    disk1:T -- B:server
-    disk2:T -- B:db
-```
+    ```python exec="on" html="1"
+    --8<-- "docs/arvore/colunas/id.py"
+    ```
 
-[Mermaid](https://mermaid.js.org/syntax/architecture.html){:target="_blank"}
+=== "gender"
 
-## Questionário, Projeto ou Plano
+    Esta coluna é preenchida com o genêro do aplicante, contendo apenas valores textuais entre *"male"* e *"female"*, não incluindo opções como *"non-binary"*, *"other"* ou *"prefer not to inform"*. Logo, estes dados, por serem textuais e apresentarem binariedade, deverão ser transformados em uma variável *dummy* para que se atinja um melhor desenpenho do algoritmo.
 
-Esse seção deve ser preenchida apenas se houver demanda do roteiro.
+    ```python exec="on" html="1"
+    --8<-- "docs/arvore/colunas/gender.py"
+    ```
+
+=== "international"
+
+    Esta coluna é preenchida com valores booleanos que classificam o aplicantente como *"estrangeiro"* ou *"não-estrangeiro"*. Logo, estes dados, por serem textuais e apresentarem binariedade, deveriam ser transformados em uma variável *dummy* para que se atinja um melhor desenpenho do algoritmo.
+
+    Entretanto, a classificação desta coluna tambem poder ser notada na coluna *"race"*, pois todos os valores nulos presentes na posterior são unicamente referentes a alunos estrangeiros.
+
+    ```python exec="on" html="1"
+    --8<-- "docs/arvore/colunas/international.py"
+    ```
+
+=== "gpa"
+
+    Esta coluna representa a performance acadêmica prévia do aplicante, que é calculada a partir do histórico escolar. Neste as notas particulares de cada matéria podem variar de 0 á 4, 0 sendo a pior nota possível e 4 a maior. Neste caso os GPA's dos aplicantes variam entre 2.65 e 3.77, apresentando uma curva normal. Devido ao fato destes valores já serem numéricos estes já estão adequados para o modelo.
+
+    ```python exec="on" html="1"
+    --8<-- "docs/arvore/colunas/gpa.py"
+    ```
+
+=== "major"
+
+    Esta coluna representa em que curso o aplicante deseja entrar, podendo assumir um de três valores textuais: *"Humanities"*, *"STEM"* e *"Business"*. Neste caso, como a variavel é textual e não apresenta binariedade, a técnica correta para o tratamento desta coluna será o *Label Enconding*, transformando estes valores textuais em valores númericos.
+
+    ```python exec="on" html="1"
+    --8<-- "docs/arvore/colunas/major.py"
+    ```
+
+=== "race"
+
+    Esta coluna representa a indentificação racial do aplicante, porém tambem há diversas linhas com valor nulo nesta coluna. Ao comparar o preenchimento desta coluna com as demais, percebe-se que o valor desta coluna so se apresenta nulo para estudantes estrangeiros, tornando a coluna *"international"* redundante.
+
+    Desta forma, para otimizar o modelo, devemos remover a coluna *"international"*, prezando pela menor quantidade de colunas possível. E como esta coluna não apresentar binariedade, deverá ser utilizada a técnica de *Label Enconding*, transformando estes valores textuais e nulos em valores númericos. 
+
+    ```python exec="on" html="1"
+    --8<-- "docs/arvore/colunas/race.py"
+    ```
+
+=== "gmat"
+
+    Esta coluna representa o desempenho do aplicante na prova de adimissão, variando de 570 á 780, porém estas notas não apresentam uma curva normal, pois há muitos registros de notas menores que a média a mais do que há registos de notas maiores que a média. Devido ao fato destes valores já serem numéricos estes já estão adequados para o modelo.
+
+    ```python exec="on" html="1"
+    --8<-- "docs/arvore/colunas/gmat.py"
+    ```
+
+=== "work_exp"
+
+    Esta coluna representa o tempo de experiência prévia do aplicante no mercado, exibida em anos. Os valores podem variar de 1 á 9, apresentando uma curva normal. Devido ao fato destes valores já serem numéricos estes já estão adequados para o modelo.
+
+    ```python exec="on" html="1"
+    --8<-- "docs/arvore/colunas/work.py"
+    ```
+
+=== "work_industry"
+
+    Esta coluna representa a área de experiência prévia do aplicante no mercado, podendo assumir, nesta base um de quatorze valores textuais. E como esta coluna não apresenta binariedade, deverá ser utilizada a técnica de *Label Enconding*, transformando estes valores textuais em valores númericos.
+
+    ```python exec="on" html="1"
+    --8<-- "docs/arvore/colunas/workInd.py"
+    ```
+
+=== "admission"
+
+    Esta coluna apresenta valores em texto para os aplicantes admitos e na lista de espera, além de valores nulos para aqueles que não foram aceitos. Esta coluna é o objeto da classificação e portanto será separada das outras colunas da base, e os valores nulos deveram ser preenchidos.
+
+    ```python exec="on" html="1"
+    --8<-- "docs/arvore/colunas/admission.py"
+    ```
+
 
 ## Discussões
 
