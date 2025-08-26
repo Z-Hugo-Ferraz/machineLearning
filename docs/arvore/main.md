@@ -8,7 +8,7 @@ A base de dados escolhida para a realização deste roteiro foi a [MBA Admission
 
 ### Análise da Base
 
-A seguir foi feita uma análise do significado e composição de cada coluna presente na base com a finalidade de indetificar possíveis problemas á serem tradados posteriormente. 
+A seguir foi feita uma análise do significado e composição de cada coluna presente na base com a finalidade de indentificar possíveis problemas á serem tradados posteriormente. 
 
 === "application_id"
 
@@ -94,6 +94,37 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
     --8<-- "docs/arvore/colunas/admission.py"
     ```
 
+## Pré-processamento
+
+Esta secção visa preparar os dados para o treinamento da árvore de decisão, atendendo as observações e análises feitas no tópico anterior.
+
+=== "Base preparada"
+    ```python exec="1"
+    --8<-- "docs/arvore/prepair.py"
+    ```
+=== "code"
+    ```python exec="0"
+    --8<-- "docs/arvore/prepair.py"
+    ```
+=== "Base original"
+    ```python exec="1"
+    --8<-- "docs/arvore/baseViz.py"
+    ```
+
+## Divisão dos dados 
+
+Devido a composição da coluna de *admission*, a seperação dos dados deve ser feita com maior atenção. Caso esta separação fosse feita com completa aleatoriedade, haveria a possibilidade de que a base de treinamento tornar-se enviesada. Portanto, esta deve ser executada com proporcionalidade a composição da coluna alvo.
+
+
+```python exec="0"
+--8<-- "docs/arvore/separar.py"
+```
+
+## Treinamento da Árvore
+
+```python exec="on" html="1"    
+--8<-- "docs/arvore/train.py"
+```
 
 ## Discussões
 
