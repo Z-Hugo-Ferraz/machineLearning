@@ -113,7 +113,9 @@ Esta secção visa preparar os dados para o treinamento da árvore de decisão, 
 
 ## Divisão dos dados 
 
-Devido a composição da coluna de *admission*, a seperação dos dados deve ser feita com maior atenção. Caso esta separação fosse feita com completa aleatoriedade, haveria a possibilidade de que a base de treinamento tornar-se enviesada. Portanto, esta deve ser executada com proporcionalidade a composição da coluna alvo.
+Devido a composição da coluna de *admission*, a seperação dos dados deve ser feita com maior atenção. Caso esta separação fosse feita com aleatoriedade, haveria a possibilidade de que a base de treinamento tornar-se enviesada. Portanto, esta deve ser executada com proporcionalidade a composição da coluna alvo. Tendo em vista situações como esta o `sickit-learn` já implementou o sorteamento extratificado como a opção `stratify` no comando `train_test_split()`.
+
+Além disto para o treinamento foi utilizado uma separação arbitrária da base em 70% treinamento e 30% validação.
 
 
 ```python exec="0"
@@ -122,14 +124,36 @@ Devido a composição da coluna de *admission*, a seperação dos dados deve ser
 
 ## Treinamento da Árvore
 
-```python exec="on" html="1"    
---8<-- "docs/arvore/train.py"
-```
+=== "Modelo da Árvore"
+    ```python exec="on" html="1"    
+    --8<-- "docs/arvore/train.py"
+    ```
+=== "code"
+    ```python exec="0"    
+    --8<-- "docs/arvore/train.py"
+    ```
 
-## Discussões
+## Avaliação do Modelo
 
-Quais as dificuldades encontradas? O que foi mais fácil? O que foi mais difícil?
+Com este treinamento o modelo apresenta 77.78% de precisão, número satisfatório para um modelo de classificação real, e as colunas mais importantes em sua tomada de deicisão são as ponutações *gpa* e *gmat* com 31.2% e 29.1% de importância, respectivamente, e a coluna com menor relevancia para o modelo é a *gender*, com  1.6% de importância.
+
+Entretando utilizar mais dados no treinamento do modelo poderia melhorara sua precisão. Logo, para compravar esta hipótese o modelo será treinado novamente com 80% da base de dados original para treinamento.
+
+## Retreinamento
+
+=== "Modelo da Árvore"
+    ```python exec="on" html="1"    
+    --8<-- "docs/arvore/train2.py"
+    ```
+=== "code"
+    ```python exec="0"    
+    --8<-- "docs/arvore/train2.py"
+    ```
+
+## Avaliação do novo modelo
+
+Com este retreinamento a hipótese anterior é rejeitada, pois ao utilizar 80% da base para treinamento a precisão geral do modelo caiu para 77.16%. Entretanto, as métricas de *gpa* e *gmat* continuaram sendo as mais relevantes, comprovando sua importância para o modelo.
 
 ## Conclusão
 
-O que foi possível concluir com a realização do roteiro?
+Ao fim deste roteiro nota-se que as colunas não precisam estar normalizadas para que se treine uma árvore de decisão, aumentar os dados de treinamento do modelo, em detrimento dos dados de teste, pode prejudicar a precisão geral do mesmo e que grande parte do tempo de trabalho do cientista de dados é a análise e limpeza da base de dados original.  

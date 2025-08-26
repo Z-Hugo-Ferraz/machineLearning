@@ -21,3 +21,5 @@ df["race"] = label_encoder.fit_transform(df["race"])
 df["gender"] = label_encoder.fit_transform(df["gender"])
 df["major"] = label_encoder.fit_transform(df["major"])
 df["work_industry"] = label_encoder.fit_transform(df["work_industry"])
+
+print(df.sample(frac=.0015).to_markdown(index=False))
