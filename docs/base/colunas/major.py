@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from io import StringIO
 
-df = pd.read_csv("./docs/arvore/MBA.csv")
+df = pd.read_csv("./docs/base/MBA.csv")
 
 count = pd.Series(df["major"]).value_counts()
 

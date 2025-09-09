@@ -2,13 +2,15 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from io import StringIO
 
-df = pd.read_csv("./docs/arvore/MBA.csv")
+df = pd.read_csv("./docs/base/MBA.csv")
 
-count = pd.Series(df["gender"]).value_counts()
+df["race"] = df["race"].fillna("null")
+
+count = pd.Series(df["race"]).value_counts()
 
 fig, ax = plt.subplots(figsize=(8, 4))
 
-ax.pie(count,labels=count.index, colors=["darkgreen", "steelblue"], autopct="%1.1f%%")
+ax.pie(count, labels=count.index, colors=["darkgreen", "steelblue", "grey", "brown", "green", "lightblue"], autopct="%1.1f%%")
 
 ax.set_title("Composição da coluna")
 

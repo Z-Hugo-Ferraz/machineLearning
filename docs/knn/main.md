@@ -1,5 +1,5 @@
 ## Objetivo
-O objetivo geral deste roteiro é utilizar as bibliotecas `pandas`, `numpy`, `matplotlib` e `scikit-learn`, além de uma base escolhida no [Kagle](https://www.kaggle.com/), para treinar e avaliar um algoritmo de árvore de decisão.
+O objetivo geral deste roteiro é utilizar as bibliotecas `pandas`, `numpy`, `matplotlib` e `scikit-learn`, além de uma base escolhida no [Kagle](https://www.kaggle.com/), para treinar e avaliar um algoritmo de K-Nearest Neighbors (KNN).
 
 
 ## Base de Dados
@@ -100,11 +100,11 @@ Esta secção visa preparar os dados para o treinamento da árvore de decisão, 
 
 === "Base preparada"
     ```python exec="1"
-    --8<-- "docs/arvore/prepair.py"
+    --8<-- "docs/knn/prepair.py"
     ```
 === "code"
     ```python exec="0"
-    --8<-- "docs/arvore/prepair.py"
+    --8<-- "docs/knn/prepair.py"
     ```
 === "Base original"
     ```python exec="1"
@@ -119,41 +119,24 @@ Além disto para o treinamento foi utilizado uma separação arbitrária da base
 
 
 ```python exec="0"
---8<-- "docs/arvore/separar.py"
+--8<-- "docs/knn/separar.py"
 ```
 
-## Treinamento da Árvore
+## Treinamento do Modelo
 
-=== "Modelo da Árvore"
+A seguir, foi feito o treinamento do modelo utilizando os três vizinhos mais próximos para a classificação, ou seja *`k = 4`*, e foi utilizada a função `permutation_importance` para avaliar a importância das features no modelo.
+
+Esta função realiza diversas iterações sequênciais com a base de teste. Em cada uma das iterações, uma coluna da base de teste tem seus valores embaralhados, e o modelo tenta classifica-lá. Com as classificações obtidas, esta função calcula a diferença na precisão. Desta forma medindo a importância de cada *feature*.
+
+=== "Modelo"
     ```python exec="on" html="1"    
-    --8<-- "docs/arvore/train.py"
+    --8<-- "docs/knn/train.py"
     ```
+    
+
 === "code"
     ```python exec="0"    
-    --8<-- "docs/arvore/train.py"
+    --8<-- "docs/knn/train.py"
     ```
 
 ## Avaliação do Modelo
-
-Com este treinamento o modelo apresenta 77.78% de precisão, número satisfatório para um modelo de classificação real, e as colunas mais importantes em sua tomada de deicisão são as ponutações *gpa* e *gmat* com 31.2% e 29.1% de importância, respectivamente, e a coluna com menor relevancia para o modelo é a *gender*, com  1.6% de importância.
-
-Entretando utilizar mais dados no treinamento do modelo poderia melhorara sua precisão. Logo, para compravar esta hipótese o modelo será treinado novamente com 80% da base de dados original para treinamento.
-
-## Retreinamento
-
-=== "Modelo da Árvore"
-    ```python exec="on" html="1"    
-    --8<-- "docs/arvore/train2.py"
-    ```
-=== "code"
-    ```python exec="0"    
-    --8<-- "docs/arvore/train2.py"
-    ```
-
-## Avaliação do novo modelo
-
-Com este retreinamento a hipótese anterior é rejeitada, pois ao utilizar 80% da base para treinamento a precisão geral do modelo caiu para 77.16%. Entretanto, as métricas de *gpa* e *gmat* continuaram sendo as mais relevantes, comprovando sua importância para o modelo.
-
-## Conclusão
-
-Ao fim deste roteiro nota-se que as colunas não precisam estar normalizadas para que se treine uma árvore de decisão, aumentar os dados de treinamento do modelo, em detrimento dos dados de teste, pode prejudicar a precisão geral do mesmo e que grande parte do tempo de trabalho do cientista de dados é a análise e limpeza da base de dados original.  

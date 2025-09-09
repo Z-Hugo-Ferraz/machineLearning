@@ -9,7 +9,7 @@ from sklearn import tree
 label_encoder = LabelEncoder()
 
 
-df = pd.read_csv("./docs/arvore/MBA.csv")
+df = pd.read_csv("./docs/base/MBA.csv")
 
 #Excluir as conlunas não desejadas
 df = df.drop(columns= ["application_id", "international"])

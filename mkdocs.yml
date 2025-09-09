@@ -106,6 +106,7 @@ markdown_extensions:
       
 plugins:
   - glightbox
+  - include-markdown
   - git-revision-date-localized:
       enable_creation_date: true
   - git-authors
@@ -135,7 +136,7 @@ nav:
   - Home: index.md
   - Roteiros:
     - Árvore de Decisão: ./arvore/main.md
-    - Roteiro 2: ./roteiro2/main.md
+    - KNN: ./knn/main.md
     - Roteiro 3: ./roteiro3/main.md
     - Roteiro 4: ./roteiro4/main.md
   - Projeto: ./projeto/main.md
