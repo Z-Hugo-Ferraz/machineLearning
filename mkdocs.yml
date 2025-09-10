@@ -111,7 +111,7 @@ plugins:
       enable_creation_date: true
   - git-authors
   - git-committers:
-      repository: hsandmann/hsandmann.github.com
+      repository: Z-Hugo-Ferraz/Z-Hugo-Ferraz.github.com
       branch: main
   - search
   - badges
