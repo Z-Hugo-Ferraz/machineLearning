@@ -20,7 +20,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
 === "gender"
 
-    Esta coluna é preenchida com o genêro do aplicante, contendo apenas valores textuais entre *"male"* e *"female"*, não incluindo opções como *"non-binary"*, *"other"* ou *"prefer not to inform"*. Logo, estes dados, por serem textuais e apresentarem binariedade, deverão ser transformados em uma variável *dummy* para que se atinja um melhor desenpenho do algoritmo.
+    Esta coluna é preenchida com o genêro do aplicante, contendo apenas valores textuais entre *"male"* e *"female"*, não incluindo opções como *"non-binary"*, *"other"* ou *"prefer not to inform"*. Logo, estes dados, por serem textuais e apresentarem binariedade, deverão ser transformados em uma variável *dummy* para que se atinja um melhor desempenho do algoritmo.
 
     ```python exec="on" html="1"
     --8<-- "docs/base/colunas/gender.py"
@@ -28,7 +28,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
 === "international"
 
-    Esta coluna é preenchida com valores booleanos que classificam o aplicantente como *"estrangeiro"* ou *"não-estrangeiro"*. Logo, estes dados, por serem textuais e apresentarem binariedade, deveriam ser transformados em uma variável *dummy* para que se atinja um melhor desenpenho do algoritmo.
+    Esta coluna é preenchida com valores booleanos que classificam o aplicantente como *"estrangeiro"* ou *"não-estrangeiro"*. Logo, estes dados, por serem textuais e apresentarem binariedade, deveriam ser transformados em uma variável *dummy* para que se atinja um melhor desempenho do algoritmo.
 
     Entretanto, a classificação desta coluna tambem poder ser notada na coluna *"race"*, pois todos os valores nulos presentes na posterior são unicamente referentes a alunos estrangeiros.
 

@@ -32,6 +32,7 @@ df["gender"] = label_encoder.fit_transform(df["gender"])
 #Escolonando as váriaveis continuas
 df["gpa"] = scaler.fit_transform(df[["gpa"]])
 df["gmat"] = scaler.fit_transform(df[["gmat"]])
+df["work_exp"] = scaler.fit_transform(df[["work_exp"]])
 
 #Gerando dummies das colunas em texto não binárias
 df = pd.get_dummies(df,columns= ["race", "major", "work_industry"], drop_first=True)

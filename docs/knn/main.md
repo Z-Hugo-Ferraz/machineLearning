@@ -20,7 +20,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
 === "gender"
 
-    Esta coluna é preenchida com o genêro do aplicante, contendo apenas valores textuais entre *"male"* e *"female"*, não incluindo opções como *"non-binary"*, *"other"* ou *"prefer not to inform"*. Logo, estes dados, por serem textuais e apresentarem binariedade, deverão ser transformados em uma variável *dummy* para que se atinja um melhor desenpenho do algoritmo.
+    Esta coluna é preenchida com o genêro do aplicante, contendo apenas valores textuais entre *"male"* e *"female"*, não incluindo opções como *"non-binary"*, *"other"* ou *"prefer not to inform"*. Logo, estes dados, por serem textuais e apresentarem binariedade, deverão ser transformados em uma variável binária numérica para que se atinja um melhor desempenho do algoritmo.
 
     ```python exec="on" html="1"
     --8<-- "docs/base/colunas/gender.py"
@@ -28,7 +28,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
 === "international"
 
-    Esta coluna é preenchida com valores booleanos que classificam o aplicantente como *"estrangeiro"* ou *"não-estrangeiro"*. Logo, estes dados, por serem textuais e apresentarem binariedade, deveriam ser transformados em uma variável *dummy* para que se atinja um melhor desenpenho do algoritmo.
+    Esta coluna é preenchida com valores booleanos que classificam o aplicantente como *"estrangeiro"* ou *"não-estrangeiro"*. Logo, estes dados, por serem textuais e apresentarem binariedade, deveriam ser transformados em uma variável binária numérica para que se atinja um melhor desempenho do algoritmo.
 
     Entretanto, a classificação desta coluna tambem poder ser notada na coluna *"race"*, pois todos os valores nulos presentes na posterior são unicamente referentes a alunos estrangeiros.
 
@@ -38,7 +38,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
 === "gpa"
 
-    Esta coluna representa a performance acadêmica prévia do aplicante, que é calculada a partir do histórico escolar. Neste as notas particulares de cada matéria podem variar de 0 á 4, 0 sendo a pior nota possível e 4 a maior. Neste caso os GPA's dos aplicantes variam entre 2.65 e 3.77, apresentando uma curva normal. Devido ao fato destes valores já serem numéricos estes já estão adequados para o modelo.
+    Esta coluna representa a performance acadêmica prévia do aplicante, que é calculada a partir do histórico escolar. Neste as notas particulares de cada matéria podem variar de 0 á 4, 0 sendo a pior nota possível e 4 a maior. Neste caso os GPA's dos aplicantes variam entre 2.65 e 3.77, apresentando uma curva normal. Devido ao fato destes valores serem numéricos e a maioria das variáveis do modelo serem binárias ou *dummies*, esta deve ser padronizada para valores entre 0 e 1.
 
     ```python exec="on" html="1"
     --8<-- "docs/base/colunas/gpa.py"
@@ -46,7 +46,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
 === "major"
 
-    Esta coluna representa em que curso o aplicante deseja entrar, podendo assumir um de três valores textuais: *"Humanities"*, *"STEM"* e *"Business"*. Neste caso, como a variavel é textual e não apresenta binariedade, a técnica correta para o tratamento desta coluna será o *Label Enconding*, transformando estes valores textuais em valores númericos.
+    Esta coluna representa em que curso o aplicante deseja entrar, podendo assumir um de três valores textuais: *"Humanities"*, *"STEM"* e *"Business"*. Neste caso, como a variavel é textual, não apresenta binariedade e não possui noção de escala (como em "ruim", "regular" e "bom"), a técnica correta para o tratamento desta coluna será o *"One Hot"*, transformando-a em 2 variáveis *dummies*.
 
     ```python exec="on" html="1"
     --8<-- "docs/base/colunas/major.py"
@@ -56,7 +56,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Esta coluna representa a indentificação racial do aplicante, porém tambem há diversas linhas com valor nulo nesta coluna. Ao comparar o preenchimento desta coluna com as demais, percebe-se que o valor desta coluna so se apresenta nulo para estudantes estrangeiros, tornando a coluna *"international"* redundante.
 
-    Desta forma, para otimizar o modelo, devemos remover a coluna *"international"*, prezando pela menor quantidade de colunas possível. E como esta coluna não apresentar binariedade, deverá ser utilizada a técnica de *Label Enconding*, transformando estes valores textuais e nulos em valores númericos. 
+    Desta forma, para otimizar o modelo, devemos remover a coluna *"international"*, prezando pela menor quantidade de colunas possível, e gerar *dummies* para cada valor registrado na coluna, pois esta não possui noção de escala (como em "ruim", "regular" e "bom"). 
 
     ```python exec="on" html="1"
     --8<-- "docs/base/colunas/race.py"
@@ -64,7 +64,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
 === "gmat"
 
-    Esta coluna representa o desempenho do aplicante na prova de adimissão, variando de 570 á 780, porém estas notas não apresentam uma curva normal, pois há muitos registros de notas menores que a média a mais do que há registos de notas maiores que a média. Devido ao fato destes valores já serem numéricos estes já estão adequados para o modelo.
+    Esta coluna representa o desempenho do aplicante na prova de adimissão, variando de 570 á 780, porém estas notas não apresentam uma curva normal, pois há muitos registros de notas menores que a média a mais do que há registos de notas maiores que a média. Devido ao fato destes valores serem numéricos e a maioria das variáveis do modelo serem binárias ou *dummies*, esta deve ser padronizada para valores entre 0 e 1.
 
     ```python exec="on" html="1"
     --8<-- "docs/base/colunas/gmat.py"
@@ -72,7 +72,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
 === "work_exp"
 
-    Esta coluna representa o tempo de experiência prévia do aplicante no mercado, exibida em anos. Os valores podem variar de 1 á 9, apresentando uma curva normal. Devido ao fato destes valores já serem numéricos estes já estão adequados para o modelo.
+    Esta coluna representa o tempo de experiência prévia do aplicante no mercado, exibida em anos. Os valores podem variar de 1 á 9, apresentando uma curva normal. Devido ao fato destes valores serem numéricos e a maioria das variáveis do modelo serem binárias ou *dummies*, esta deve ser padronizada para valores entre 0 e 1.
 
     ```python exec="on" html="1"
     --8<-- "docs/base/colunas/work.py"
@@ -80,7 +80,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
 === "work_industry"
 
-    Esta coluna representa a área de experiência prévia do aplicante no mercado, podendo assumir, nesta base um de quatorze valores textuais. E como esta coluna não apresenta binariedade, deverá ser utilizada a técnica de *Label Enconding*, transformando estes valores textuais em valores númericos.
+    Esta coluna representa a área de experiência prévia do aplicante no mercado, podendo assumir, nesta base um de quatorze valores textuais. E como esta coluna não apresenta binariedade e não possui noção de escala (como em "ruim", "regular" e "bom"), a técnica correta para o tratamento desta coluna será o *"One Hot"*, transformando-a em 13 variáveis *dummies*.
 
     ```python exec="on" html="1"
     --8<-- "docs/base/colunas/workInd.py"
@@ -132,7 +132,6 @@ Esta função realiza diversas iterações sequênciais com a base de teste. Em 
     ```python exec="on" html="1"    
     --8<-- "docs/knn/train.py"
     ```
-    
 
 === "code"
     ```python exec="0"    
@@ -140,3 +139,93 @@ Esta função realiza diversas iterações sequênciais com a base de teste. Em 
     ```
 
 ## Avaliação do Modelo
+
+Ao fim do treinamento o modelo apresentou 79% de precisão, valor satisfatório. Entretanto algumas features apresentaram valores negativos no teste de `permutation_importance`, o que indica que o modelo ficaria mais preciso caso esta variável não estivesse presente, porém por se tratar de um valor muito próximo a zero, este indicio pode ser apenas ruído estatístico.
+
+## Retreinamento
+
+
+=== "1° retreino"
+    A seguir foi feito o retreinamento do modelo sem a coluna *"work_exp"* para testar a hipótese de que o modelo teria melhora em sua remoção.
+
+    === "Modelo"
+        ```python exec="on" html="1"    
+        --8<-- "docs/knn/retrains/retrain.py"
+        ```
+
+    === "code"
+        ```python exec="0"    
+        --8<-- "docs/knn/retrains/retrain.py"
+        ```
+
+    ### Análise
+    Após o retreinamento, o modelo apresentou aumento de precisão em dois pontos percentuais, portanto será realizado o 2° retreino, seguindo a mesma lógica, ou seja, removendo a variável com menor valor no teste de `permutation_importance`, desde que esta seja negativa.
+
+=== "2° retreino"
+    A seguir foi feito o retreinamento do modelo sem as colunas *"work_exp"* e *"work_industry_Investment Management"* para testar a hipótese de que o modelo teria melhora em sua remoção.
+
+    === "Modelo"
+        ```python exec="on" html="1"    
+        --8<-- "docs/knn/retrains/retrain1.py"
+        ```
+
+    === "code"
+        ```python exec="0"    
+        --8<-- "docs/knn/retrains/retrain1.py"
+        ```
+    
+    ### Análise
+    Após o retreinamento, o modelo apresentou aumento de precisão em um ponto percentual, portanto será realizado o 3° retreino, seguindo a mesma lógica, ou seja, removendo a variável com menor valor no teste de `permutation_importance`, desde que esta seja negativa.
+
+=== "3° retreino"
+    A seguir foi feito o retreinamento do modelo sem as colunas *"work_exp"*, *"work_industry_Investment Management"* e *"work_industry_Other"*  para testar a hipótese de que o modelo teria melhora em sua remoção.
+
+    === "Modelo"
+        ```python exec="on" html="1"    
+        --8<-- "docs/knn/retrains/retrain2.py"
+        ```
+
+    === "code"
+        ```python exec="0"    
+        --8<-- "docs/knn/retrains/retrain2.py"
+        ```
+    
+    ### Análise
+    Após o retreinamento, o modelo não apresentou variação de precisão, entretanto percebe-se um padrão. Toda vez que o modelo é retreinado alguma das variáveis *dummmies* relacianadas a coluna *"work_industry"* são estimadas como prejudicias ao modelo, logo o 4° retreino será realizado sem a variável *"work_industry"* por inteira.
+
+=== "4° retreino"
+    A seguir foi feito o retreinamento do modelo sem as colunas *"work_exp"* e *"work_industry"* para testar a hipótese de que o modelo teria melhora em sua remoção.
+
+    === "Modelo"
+        ```python exec="on" html="1"    
+        --8<-- "docs/knn/retrains/retrain3.py"
+        ```
+
+    === "code"
+        ```python exec="0"    
+        --8<-- "docs/knn/retrains/retrain3.py"
+        ```
+    
+    ### Análise
+    Após o retreinamento, o modelo apresentou queda de precisão em três pontos percentuais, logo conclui-se que parte dos valores da coluna *"work_industry"* são relevantes, portanto o 5° treino será realizado apenas removendo variáveis indicadas como prejudiciais.
+
+=== "5° retreino"
+    A seguir foi feito o retreinamento do modelo sem as colunas *"work_exp"*, *"work_industry_Investment Management"*, *"work_industry_Other"*, *"work_industry_Health Care"* e *"work_industry_Media/Entertainment"* para testar a hipótese de que o modelo teria melhora em sua remoção.
+
+    === "Modelo"
+        ```python exec="on" html="1"    
+        --8<-- "docs/knn/retrains/retrain4.py"
+        ```
+
+    === "code"
+        ```python exec="0"    
+        --8<-- "docs/knn/retrains/retrain4.py"
+        ```
+    
+    ### Análise
+    Após o retreinamento, o modelo não apresentou variação de precisão, e o único valor negativo presente nesta avaliação é estatisticamente irrelevante, portanto a melhor precisão que este modelo pode obter com estas condições é de 82%.
+
+
+## Análise
+
+Em relação ao modelo de árvore de decisão treinado anteriormente, este modelo requer maior cuidado com a limpeza e tratamento da base e é mais sensível á *outliers*, entretanto obteve melhor resultado em suas predições.
