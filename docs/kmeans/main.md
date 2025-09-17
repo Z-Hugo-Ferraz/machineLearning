@@ -1,5 +1,5 @@
 ## Objetivo
-O objetivo geral deste roteiro é utilizar as bibliotecas `pandas`, `numpy`, `matplotlib` e `scikit-learn`, além de uma base escolhida no [Kagle](https://www.kaggle.com/), para treinar e avaliar um algoritmo de K-Nearest Neighbors (KNN).
+O objetivo geral deste roteiro é utilizar as bibliotecas `pandas`, `numpy`, `matplotlib` e `scikit-learn`, além de uma base escolhida no [Kagle](https://www.kaggle.com/), para treinar e avaliar um algoritmo de K-Means.
 
 
 ## Base de Dados
@@ -14,7 +14,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Esta coluna é composta pelos ID's das aplicações realizadas, ou seja trata-se de um valor numérico lógico, único a cada aplicação, desta forma pode-se afirmar que esta coluna não terá relevância para o algoritmo e deverá ser retirada da base para treinamento.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/id.py"
     ```
 
@@ -22,7 +22,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Esta coluna é preenchida com o genêro do aplicante, contendo apenas valores textuais entre *"male"* e *"female"*, não incluindo opções como *"non-binary"*, *"other"* ou *"prefer not to inform"*. Logo, estes dados, por serem textuais e apresentarem binariedade, deverão ser transformados em uma variável binária numérica para que se atinja um melhor desempenho do algoritmo.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/gender.py"
     ```
 
@@ -32,7 +32,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Entretanto, a classificação desta coluna tambem poder ser notada na coluna *"race"*, pois todos os valores nulos presentes na posterior são unicamente referentes a alunos estrangeiros.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/international.py"
     ```
 
@@ -40,7 +40,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Esta coluna representa a performance acadêmica prévia do aplicante, que é calculada a partir do histórico escolar. Neste as notas particulares de cada matéria podem variar de 0 á 4, 0 sendo a pior nota possível e 4 a maior. Neste caso os GPA's dos aplicantes variam entre 2.65 e 3.77, apresentando uma curva normal. Devido ao fato destes valores serem numéricos e a maioria das variáveis do modelo serem binárias ou *dummies*, esta deve ser padronizada para valores entre 0 e 1.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/gpa.py"
     ```
 
@@ -48,7 +48,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Esta coluna representa em que curso o aplicante deseja entrar, podendo assumir um de três valores textuais: *"Humanities"*, *"STEM"* e *"Business"*. Neste caso, como a variavel é textual, não apresenta binariedade e não possui noção de escala (como em "ruim", "regular" e "bom"), a técnica correta para o tratamento desta coluna será o *"One Hot"*, transformando-a em 2 variáveis *dummies*.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/major.py"
     ```
 
@@ -58,7 +58,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Desta forma, para otimizar o modelo, devemos remover a coluna *"international"*, prezando pela menor quantidade de colunas possível, e gerar *dummies* para cada valor registrado na coluna, pois esta não possui noção de escala (como em "ruim", "regular" e "bom"). 
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/race.py"
     ```
 
@@ -66,7 +66,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Esta coluna representa o desempenho do aplicante na prova de adimissão, variando de 570 á 780, porém estas notas não apresentam uma curva normal, pois há muitos registros de notas menores que a média a mais do que há registos de notas maiores que a média. Devido ao fato destes valores serem numéricos e a maioria das variáveis do modelo serem binárias ou *dummies*, esta deve ser padronizada para valores entre 0 e 1.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/gmat.py"
     ```
 
@@ -74,7 +74,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Esta coluna representa o tempo de experiência prévia do aplicante no mercado, exibida em anos. Os valores podem variar de 1 á 9, apresentando uma curva normal. Devido ao fato destes valores serem numéricos e a maioria das variáveis do modelo serem binárias ou *dummies*, esta deve ser padronizada para valores entre 0 e 1.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/work.py"
     ```
 
@@ -82,7 +82,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Esta coluna representa a área de experiência prévia do aplicante no mercado, podendo assumir, nesta base um de quatorze valores textuais. E como esta coluna não apresenta binariedade e não possui noção de escala (como em "ruim", "regular" e "bom"), a técnica correta para o tratamento desta coluna será o *"One Hot"*, transformando-a em 13 variáveis *dummies*.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/workInd.py"
     ```
 
@@ -90,7 +90,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Esta coluna apresenta valores em texto para os aplicantes admitos e na lista de espera, além de valores nulos para aqueles que não foram aceitos. Esta coluna é o objeto da classificação e portanto será separada das outras colunas da base, e os valores nulos deveram ser preenchidos.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/admission.py"
     ```
 
@@ -124,108 +124,11 @@ Além disto para o treinamento foi utilizado uma separação arbitrária da base
 
 ## Treinamento do Modelo
 
-A seguir, foi feito o treinamento do modelo utilizando os três vizinhos mais próximos para a classificação, ou seja *`k = 4`*, e foi utilizada a função `permutation_importance` para avaliar a importância das features no modelo.
-
-Esta função realiza diversas iterações sequênciais com a base de teste. Em cada uma das iterações, uma coluna da base de teste tem seus valores embaralhados, e o modelo tenta classifica-lá. Com as classificações obtidas, esta função calcula a diferença na precisão. Desta forma medindo a importância de cada *feature*.
-
-=== "Modelo"
-    ```python exec="1" html="1"    
-    --8<-- "docs/knn/train.py"
+=== "Treinamento"
+    ```python exec="1"
+    --8<-- "docs/kmeans/train.py"
     ```
-
 === "code"
-    ```python exec="0"    
-    --8<-- "docs/knn/train.py"
+    ```python exec="0"
+    --8<-- "docs/kmeans/train.py"
     ```
-
-## Avaliação do Modelo
-
-Ao fim do treinamento o modelo apresentou 79% de precisão, valor satisfatório. Entretanto algumas features apresentaram valores negativos no teste de `permutation_importance`, o que indica que o modelo ficaria mais preciso caso esta variável não estivesse presente, porém por se tratar de um valor muito próximo a zero, este indicio pode ser apenas ruído estatístico.
-
-## Retreinamento
-
-
-=== "1° retreino"
-    A seguir foi feito o retreinamento do modelo sem a coluna *"work_exp"* para testar a hipótese de que o modelo teria melhora em sua remoção.
-
-    === "Modelo"
-        ```python exec="1" html="1"    
-        --8<-- "docs/knn/retrains/retrain.py"
-        ```
-
-    === "code"
-        ```python exec="0"    
-        --8<-- "docs/knn/retrains/retrain.py"
-        ```
-
-    - Análise
-    Após o retreinamento, o modelo apresentou aumento de precisão em dois pontos percentuais, portanto será realizado o 2° retreino, seguindo a mesma lógica, ou seja, removendo a variável com menor valor no teste de `permutation_importance`, desde que esta seja negativa.
-
-=== "2° retreino"
-    A seguir foi feito o retreinamento do modelo sem as colunas *"work_exp"* e *"work_industry_Investment Management"* para testar a hipótese de que o modelo teria melhora em sua remoção.
-
-    === "Modelo"
-        ```python exec="1" html="1"    
-        --8<-- "docs/knn/retrains/retrain1.py"
-        ```
-
-    === "code"
-        ```python exec="0"    
-        --8<-- "docs/knn/retrains/retrain1.py"
-        ```
-    
-    - Análise
-    Após o retreinamento, o modelo apresentou aumento de precisão em um ponto percentual, portanto será realizado o 3° retreino, seguindo a mesma lógica, ou seja, removendo a variável com menor valor no teste de `permutation_importance`, desde que esta seja negativa.
-
-=== "3° retreino"
-    A seguir foi feito o retreinamento do modelo sem as colunas *"work_exp"*, *"work_industry_Investment Management"* e *"work_industry_Other"*  para testar a hipótese de que o modelo teria melhora em sua remoção.
-
-    === "Modelo"
-        ```python exec="1" html="1"    
-        --8<-- "docs/knn/retrains/retrain2.py"
-        ```
-
-    === "code"
-        ```python exec="0"    
-        --8<-- "docs/knn/retrains/retrain2.py"
-        ```
-    
-    - Análise
-    Após o retreinamento, o modelo não apresentou variação de precisão, entretanto percebe-se um padrão. Toda vez que o modelo é retreinado alguma das variáveis *dummmies* relacianadas a coluna *"work_industry"* são estimadas como prejudicias ao modelo, logo o 4° retreino será realizado sem a variável *"work_industry"* por inteira.
-
-=== "4° retreino"
-    A seguir foi feito o retreinamento do modelo sem as colunas *"work_exp"* e *"work_industry"* para testar a hipótese de que o modelo teria melhora em sua remoção.
-
-    === "Modelo"
-        ```python exec="1" html="1"    
-        --8<-- "docs/knn/retrains/retrain3.py"
-        ```
-
-    === "code"
-        ```python exec="0"    
-        --8<-- "docs/knn/retrains/retrain3.py"
-        ```
-    
-    - Análise
-    Após o retreinamento, o modelo apresentou queda de precisão em três pontos percentuais, logo conclui-se que parte dos valores da coluna *"work_industry"* são relevantes, portanto o 5° treino será realizado apenas removendo variáveis indicadas como prejudiciais.
-
-=== "5° retreino"
-    A seguir foi feito o retreinamento do modelo sem as colunas *"work_exp"*, *"work_industry_Investment Management"*, *"work_industry_Other"*, *"work_industry_Health Care"* e *"work_industry_Media/Entertainment"* para testar a hipótese de que o modelo teria melhora em sua remoção.
-
-    === "Modelo"
-        ```python exec="1" html="1"    
-        --8<-- "docs/knn/retrains/retrain4.py"
-        ```
-
-    === "code"
-        ```python exec="0"    
-        --8<-- "docs/knn/retrains/retrain4.py"
-        ```
-    
-    - Análise
-    Após o retreinamento, o modelo não apresentou variação de precisão, e o único valor negativo presente nesta avaliação é estatisticamente irrelevante, portanto a melhor precisão que este modelo pode obter com estas condições é de 82%.
-
-
-## Análise
-
-Em relação ao modelo de árvore de decisão treinado anteriormente, este modelo requer maior cuidado com a limpeza e tratamento da base e é mais sensível á *outliers*, entretanto obteve melhor resultado em suas predições.

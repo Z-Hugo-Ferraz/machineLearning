@@ -137,3 +137,4 @@ nav:
   - Roteiros:
     - Árvore de Decisão: ./arvore/main.md
     - KNN: ./knn/main.md
+    - K-Means: ./kmeans/main.md
