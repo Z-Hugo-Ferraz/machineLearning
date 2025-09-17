@@ -14,7 +14,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Esta coluna é composta pelos ID's das aplicações realizadas, ou seja trata-se de um valor numérico lógico, único a cada aplicação, desta forma pode-se afirmar que esta coluna não terá relevância para o algoritmo e deverá ser retirada da base para treinamento.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/id.py"
     ```
 
@@ -22,7 +22,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Esta coluna é preenchida com o genêro do aplicante, contendo apenas valores textuais entre *"male"* e *"female"*, não incluindo opções como *"non-binary"*, *"other"* ou *"prefer not to inform"*. Logo, estes dados, por serem textuais e apresentarem binariedade, deverão ser transformados em uma variável *dummy* para que se atinja um melhor desempenho do algoritmo.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/gender.py"
     ```
 
@@ -32,7 +32,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Entretanto, a classificação desta coluna tambem poder ser notada na coluna *"race"*, pois todos os valores nulos presentes na posterior são unicamente referentes a alunos estrangeiros.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/international.py"
     ```
 
@@ -40,7 +40,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Esta coluna representa a performance acadêmica prévia do aplicante, que é calculada a partir do histórico escolar. Neste as notas particulares de cada matéria podem variar de 0 á 4, 0 sendo a pior nota possível e 4 a maior. Neste caso os GPA's dos aplicantes variam entre 2.65 e 3.77, apresentando uma curva normal. Devido ao fato destes valores já serem numéricos estes já estão adequados para o modelo.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/gpa.py"
     ```
 
@@ -48,7 +48,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Esta coluna representa em que curso o aplicante deseja entrar, podendo assumir um de três valores textuais: *"Humanities"*, *"STEM"* e *"Business"*. Neste caso, como a variavel é textual e não apresenta binariedade, a técnica correta para o tratamento desta coluna será o *Label Enconding*, transformando estes valores textuais em valores númericos.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/major.py"
     ```
 
@@ -58,7 +58,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Desta forma, para otimizar o modelo, devemos remover a coluna *"international"*, prezando pela menor quantidade de colunas possível. E como esta coluna não apresentar binariedade, deverá ser utilizada a técnica de *Label Enconding*, transformando estes valores textuais e nulos em valores númericos. 
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/race.py"
     ```
 
@@ -66,7 +66,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Esta coluna representa o desempenho do aplicante na prova de adimissão, variando de 570 á 780, porém estas notas não apresentam uma curva normal, pois há muitos registros de notas menores que a média a mais do que há registos de notas maiores que a média. Devido ao fato destes valores já serem numéricos estes já estão adequados para o modelo.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/gmat.py"
     ```
 
@@ -74,7 +74,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Esta coluna representa o tempo de experiência prévia do aplicante no mercado, exibida em anos. Os valores podem variar de 1 á 9, apresentando uma curva normal. Devido ao fato destes valores já serem numéricos estes já estão adequados para o modelo.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/work.py"
     ```
 
@@ -82,7 +82,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Esta coluna representa a área de experiência prévia do aplicante no mercado, podendo assumir, nesta base um de quatorze valores textuais. E como esta coluna não apresenta binariedade, deverá ser utilizada a técnica de *Label Enconding*, transformando estes valores textuais em valores númericos.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/workInd.py"
     ```
 
@@ -90,7 +90,7 @@ A seguir foi feita uma análise do significado e composição de cada coluna pre
 
     Esta coluna apresenta valores em texto para os aplicantes admitos e na lista de espera, além de valores nulos para aqueles que não foram aceitos. Esta coluna é o objeto da classificação e portanto será separada das outras colunas da base, e os valores nulos deveram ser preenchidos.
 
-    ```python exec="off" html="1"
+    ```python exec="on" html="1"
     --8<-- "docs/base/colunas/admission.py"
     ```
 
