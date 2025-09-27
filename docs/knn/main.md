@@ -159,6 +159,7 @@ Ao fim do treinamento o modelo apresentou 79% de precisão, valor satisfatório.
         ```
 
     - Análise
+
     Após o retreinamento, o modelo apresentou aumento de precisão em dois pontos percentuais, portanto será realizado o 2° retreino, seguindo a mesma lógica, ou seja, removendo a variável com menor valor no teste de `permutation_importance`, desde que esta seja negativa.
 
 === "2° retreino"
@@ -175,6 +176,7 @@ Ao fim do treinamento o modelo apresentou 79% de precisão, valor satisfatório.
         ```
     
     - Análise
+
     Após o retreinamento, o modelo apresentou aumento de precisão em um ponto percentual, portanto será realizado o 3° retreino, seguindo a mesma lógica, ou seja, removendo a variável com menor valor no teste de `permutation_importance`, desde que esta seja negativa.
 
 === "3° retreino"
@@ -191,6 +193,7 @@ Ao fim do treinamento o modelo apresentou 79% de precisão, valor satisfatório.
         ```
     
     - Análise
+
     Após o retreinamento, o modelo não apresentou variação de precisão, entretanto percebe-se um padrão. Toda vez que o modelo é retreinado alguma das variáveis *dummmies* relacianadas a coluna *"work_industry"* são estimadas como prejudicias ao modelo, logo o 4° retreino será realizado sem a variável *"work_industry"* por inteira.
 
 === "4° retreino"
@@ -207,6 +210,7 @@ Ao fim do treinamento o modelo apresentou 79% de precisão, valor satisfatório.
         ```
     
     - Análise
+
     Após o retreinamento, o modelo apresentou queda de precisão em três pontos percentuais, logo conclui-se que parte dos valores da coluna *"work_industry"* são relevantes, portanto o 5° treino será realizado apenas removendo variáveis indicadas como prejudiciais.
 
 === "5° retreino"
@@ -223,6 +227,7 @@ Ao fim do treinamento o modelo apresentou 79% de precisão, valor satisfatório.
         ```
     
     - Análise
+    
     Após o retreinamento, o modelo não apresentou variação de precisão, e o único valor negativo presente nesta avaliação é estatisticamente irrelevante, portanto a melhor precisão que este modelo pode obter com estas condições é de 82%.
 
 

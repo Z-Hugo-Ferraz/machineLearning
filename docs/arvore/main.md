@@ -135,7 +135,7 @@ Além disto para o treinamento foi utilizado uma separação arbitrária da base
 
 ## Avaliação do Modelo
 
-Com este treinamento o modelo apresenta 77.78% de precisão, número satisfatório para um modelo de classificação real, e as colunas mais importantes em sua tomada de deicisão são as ponutações *gpa* e *gmat* com 31.2% e 29.1% de importância, respectivamente, e a coluna com menor relevancia para o modelo é a *gender*, com  1.6% de importância.
+Com este treinamento o modelo apresenta 78.48% de precisão, número satisfatório para um modelo de classificação real, e as colunas mais importantes em sua tomada de deicisão são as ponutações *gpa* e *gmat* com 29.4% e 27.7% de importância, respectivamente, e a coluna com menor relevancia para o modelo é a *gender*, com  1.7% de importância.
 
 Entretando utilizar mais dados no treinamento do modelo poderia melhorara sua precisão. Logo, para compravar esta hipótese o modelo será treinado novamente com 80% da base de dados original para treinamento.
 
@@ -152,7 +152,7 @@ Entretando utilizar mais dados no treinamento do modelo poderia melhorara sua pr
 
 ## Avaliação do novo modelo
 
-Com este retreinamento a hipótese anterior é rejeitada, pois ao utilizar 80% da base para treinamento a precisão geral do modelo caiu para 77.16%. Entretanto, as métricas de *gpa* e *gmat* continuaram sendo as mais relevantes, comprovando sua importância para o modelo.
+Com este retreinamento a hipótese anterior é rejeitada, pois ao utilizar 80% da base para treinamento a precisão geral do modelo caiu para 77.89%. Entretanto, as métricas de *gpa* e *gmat* continuaram sendo as mais relevantes, comprovando sua importância para o modelo.
 
 ## Conclusão
 

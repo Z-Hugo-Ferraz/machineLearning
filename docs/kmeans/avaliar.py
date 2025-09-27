@@ -1,7 +1,7 @@
-import base64
-from io import BytesIO
-import matplotlib.pyplot as plt
 import pandas as pd
+from sklearn.metrics import accuracy_score, confusion_matrix
+import numpy as np
+from scipy.stats import mode
 from sklearn.model_selection import train_test_split
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import LabelEncoder, StandardScaler
@@ -28,7 +28,6 @@ df[["gpa", "gmat", "work_exp"]] = scaler.fit_transform(df[["gpa", "gmat", "work_
 # Gerar dummies
 df = pd.get_dummies(df, columns=["race", "major", "work_industry"], drop_first=True)
 
-# Separar variáveis independentes e dependente
 X = df.drop("admission", axis=1)
 y = label_encoder.fit_transform(df["admission"])
 
@@ -43,25 +42,27 @@ X_pca = pca.fit_transform(X_train)
 kmeans = KMeans(n_clusters=3, init="k-means++", max_iter=100, random_state=42)
 labels = kmeans.fit_predict(X_pca)
 
-# Plot
-plt.figure(figsize=(12, 10))
-plt.scatter(X_pca[:, 0], X_pca[:, 1], c=labels, cmap="viridis", s=50)
-plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1],
-            c="red", marker="*", s=200, label="Centroids")
-plt.title("K-Means Clustering Results (PCA 2D)")
-plt.xlabel("PCA Feature 1")
-plt.ylabel("PCA Feature 2")
-plt.legend()
+# Mapear clusters para classes reais por voto majoritário
+cluster_map = {}
+for c in np.unique(labels):
+    mask = labels == c
+    majority_class = mode(y_train[mask], keepdims=False)[0]
+    cluster_map[c] = majority_class
 
-# Salvar em buffer png
-buffer = BytesIO()
-plt.savefig(buffer, format="png", transparent=True, bbox_inches="tight")
-buffer.seek(0)
+# Reatribuir clusters como classes previstas
+y_pred = np.array([cluster_map[c] for c in labels])
 
-# Converter em base64
-img_base64 = base64.b64encode(buffer.read()).decode("utf-8")
+# Calcular acurácia e matriz de confusão
+acc = accuracy_score(y_train, y_pred)
+cm = confusion_matrix(y_train, y_pred)
 
-# Criar tag HTML para embutir no MkDocs
-html_img = f'<img src="data:image/png;base64,{img_base64}" alt="KMeans clustering" />'
+cm_df = pd.DataFrame(
+    cm,
+    index=[f"Classe Real {cls}" for cls in np.unique(y_train)],
+    columns=[f"Classe Pred {cls}" for cls in np.unique(y_train)]
+)
 
-print(html_img)
+print(f"Acurácia: {acc*100:.2f}%")
+print("<br>Matriz de Confusão:")
+print(cm_df.to_html())
+

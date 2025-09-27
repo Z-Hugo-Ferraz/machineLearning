@@ -100,11 +100,11 @@ Esta secção visa preparar os dados para o treinamento da árvore de decisão, 
 
 === "Base preparada"
     ```python exec="1"
-    --8<-- "docs/knn/prepair.py"
+    --8<-- "docs/kmeans/prepair.py"
     ```
 === "code"
     ```python exec="0"
-    --8<-- "docs/knn/prepair.py"
+    --8<-- "docs/kmeans/prepair.py"
     ```
 === "Base original"
     ```python exec="1"
@@ -119,7 +119,7 @@ Além disto para o treinamento foi utilizado uma separação arbitrária da base
 
 
 ```python exec="0"
---8<-- "docs/knn/separar.py"
+--8<-- "docs/kmeans/separar.py"
 ```
 
 ## Treinamento do Modelo
@@ -132,3 +132,18 @@ Além disto para o treinamento foi utilizado uma separação arbitrária da base
     ```python exec="0"
     --8<-- "docs/kmeans/train.py"
     ```
+
+## Avaliação
+
+=== "Treinamento"
+    ```python exec="1"
+    --8<-- "docs/kmeans/avaliar.py"
+    ```
+=== "code"
+    ```python exec="0"
+    --8<-- "docs/kmeans/avaliar.py"
+    ```
+
+## Análise
+
+Apesar de atingir 84,14% de acurácia, o modelo aparenta ser inadequado para a base, pois, ainda que tenha encontrado 3 clusters, estes não correspondem as classificações desejadas, de maneira que, para todos os clusters, a maioria dos pontos possuem o rótulo de *`Refused`*, fazendo com que todas as predições sejam classificadas como *`Refused`*.
