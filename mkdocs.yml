@@ -138,3 +138,4 @@ nav:
     - Árvore de Decisão: ./arvore/main.md
     - KNN: ./knn/main.md
     - K-Means: ./kmeans/main.md
+    - Random Forest: ./randomForest/main.md
