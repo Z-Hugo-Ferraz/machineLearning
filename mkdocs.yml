@@ -139,3 +139,5 @@ nav:
     - KNN: ./knn/main.md
     - K-Means: ./kmeans/main.md
     - Random Forest: ./randomForest/main.md
+    - pySpark: ./pySpark/main.md
+    - Page Rank: ./pageRank/main.md
