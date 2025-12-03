@@ -18,3 +18,4 @@ pandas
 seaborn
 yfinance
 tabulate
+networkx
