@@ -1,6 +1,5 @@
 import numpy as np
-import networkx as nx
-
+import networkx as nx   
 
 def pagerank_custom(G, d=0.85, tol=1e-4, max_iter=100):
     nodes = list(G.nodes())
@@ -35,30 +34,25 @@ def pagerank_custom(G, d=0.85, tol=1e-4, max_iter=100):
     return pr_dict
 
 
-def main():
-    path = "pageRankData/roadNet-CA.txt"
+path = "./docs/pageRank/roadNet-CA.txt"
 
-    G = nx.read_edgelist(
-        path,
-        comments="#",
-        nodetype=int,
-        create_using=nx.DiGraph()
-    )
+G = nx.read_edgelist(
+    path,
+    comments="#",
+    nodetype=int,
+    create_using=nx.DiGraph()
+)
 
-    pr_dict = pagerank_custom(G, d=0.85)
+pr_dict = pagerank_custom(G, d=0.85)
 
-    pr_values = np.fromiter(pr_dict.values(), dtype=np.float64)
+pr_values = np.fromiter(pr_dict.values(), dtype=np.float64)
 
-    print("\n========== RESULTADOS ==========")
-    print(f"Soma dos PR: {pr_values.sum():.6f}")
-    print(f"PR mínimo:  {pr_values.min():.6e}")
-    print(f"PR máximo:  {pr_values.max():.6e}")
+print("\n========== RESULTADOS ==========")
+print(f"\nSoma dos PR: {pr_values.sum():.6f}")
+print(f"\nPR mínimo:  {pr_values.min():.6e}")
+print(f"\nPR máximo:  {pr_values.max():.6e}")
 
-    print("\nTop-10 nós por PageRank:")
-    top10 = sorted(pr_dict.items(), key=lambda x: x[1], reverse=True)[:10]
-    for i, (node, score) in enumerate(top10, 1):
-        print(f"{i:2d}. nó={node} | PR={score:.6e}")
-
-
-if __name__ == '__main__':
-    main()
+print("\nTop-10 nós por PageRank:")
+top10 = sorted(pr_dict.items(), key=lambda x: x[1], reverse=True)[:10]
+for i, (node, score) in enumerate(top10, 1):
+    print(f"\n{i:2d}. nó={node} | PR={score:.6e}")

@@ -1,6 +1,6 @@
 import networkx as nx
 
-path = "pageRankData/roadNet-CA.txt"
+path = "./docs/pageRank/roadNet-CA.txt"
 
 G = nx.read_edgelist(
     path,
@@ -9,4 +9,6 @@ G = nx.read_edgelist(
     create_using=nx.DiGraph()
 )
 
-print(nx.info(G))
+print(f"\nNúmero de nós: {G.number_of_nodes()}")
+print(f"\nNúmero de arestas: {G.number_of_edges()}")
+print(f"\nÉ direcionado? {G.is_directed()}")

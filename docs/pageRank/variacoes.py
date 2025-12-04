@@ -56,34 +56,33 @@ def pagerank_custom(G, d=0.85, tol=1e-4, max_iter=100):
 # ----------------------------------------------------------------------
 # Script principal: roda para d = 0.5, 0.85, 0.99 e printa resultados
 # ----------------------------------------------------------------------
-if __name__ == "__main__":
-    # Caminho do arquivo roadNet-CA (ajuste se necessário)
-    path = "data/roadNet-CA.txt"
+# Caminho do arquivo roadNet-CA (ajuste se necessário)
+path = "./docs/pageRank/roadNet-CA.txt"
 
-    # Carrega o grafo como DiGraph
-    G = nx.read_edgelist(
-        path,
-        comments="#",
-        nodetype=int,
-        create_using=nx.DiGraph()
-    )
+# Carrega o grafo como DiGraph
+G = nx.read_edgelist(
+    path,
+    comments="#",
+    nodetype=int,
+    create_using=nx.DiGraph()
+)
 
-    # Valores de d a serem testados
-    d_values = [0.5, 0.85, 0.99]
+# Valores de d a serem testados
+d_values = [0.5, 0.85, 0.99]
 
-    for d in d_values:
-        pr_dict = pagerank_custom(G, d=d, tol=1e-4, max_iter=100)
+for d in d_values:
+    pr_dict = pagerank_custom(G, d=d, tol=1e-4, max_iter=100)
 
-        pr_values = np.fromiter(pr_dict.values(), dtype=float)
+    pr_values = np.fromiter(pr_dict.values(), dtype=float)
 
-        print(f"\n==================== RESULTADOS PARA d = {d} ====================")
-        print(f"Soma dos PR: {pr_values.sum():.6f}")
-        print(f"PR mínimo:  {pr_values.min():.6e}")
-        print(f"PR máximo:  {pr_values.max():.6e}")
+    print(f"\n==================== RESULTADOS PARA d = {d} ====================")
+    print(f"\nSoma dos PR: {pr_values.sum():.6f}")
+    print(f"\nPR mínimo:  {pr_values.min():.6e}")
+    print(f"\nPR máximo:  {pr_values.max():.6e}")
 
-        # Top-10 nós
-        top10 = sorted(pr_dict.items(), key=lambda x: x[1], reverse=True)[:10]
+    # Top-10 nós
+    top10 = sorted(pr_dict.items(), key=lambda x: x[1], reverse=True)[:10]
 
-        print("\nTop-10 nós por PageRank:")
-        for i, (node, score) in enumerate(top10, 1):
-            print(f"{i:2d}. nó={node} | PR={score:.6e}")
+    print("\nTop-10 nós por PageRank:")
+    for i, (node, score) in enumerate(top10, 1):
+        print(f"\n{i:2d}. nó={node} | PR={score:.6e}")
